@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { View, Text, Button, SafeAreaView, FlatList } from "react-native";
+import { View, Text, Button, SafeAreaView, FlatList, Platform } from "react-native";
 import Booking from "../components/Booking";
 import { BookingEntity } from "../entities/BookingEntity";
 
@@ -11,11 +11,15 @@ export default function ListScreen() {
 
     const [bookings, setBookings] = useState([]);
 
+    const local = Platform.OS === 'ios' ? 'localhost' : '10.0.2.2'
+
     useEffect(() => {
         const fetchBookings = async () => {
-            const response = await axios.get('http://localhost:3000/bookings');
-            console.log(response.data);
-            setBookings(response.data);
+            axios.get('http://'+local+':3000/bookings').then(response => {
+                console.log(response.data);
+                setBookings(response.data);
+            }).catch(error => {console.log(error);
+            });
           };
           fetchBookings();
     }, [])
