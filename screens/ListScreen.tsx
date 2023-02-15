@@ -7,8 +7,6 @@ import { BookingEntity } from "../entities/BookingEntity";
 
 
 export default function ListScreen() {
-    // const navigation = useNavigation()
-
     const [bookings, setBookings] = useState([]);
 
     const local = Platform.OS === 'ios' ? 'localhost' : '10.0.2.2'

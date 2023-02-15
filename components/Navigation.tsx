@@ -3,7 +3,7 @@ import { BookingEntity } from "../entities/BookingEntity";
 import EditScreen from "../screens/EditScreen";
 import ListScreen from "../screens/ListScreen";
 
-type StackMain = {
+export type StackMain = {
     List: undefined;
     Edit: { booking: BookingEntity };
   };
