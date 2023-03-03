@@ -11,10 +11,11 @@ import {
   TextInput,
 } from "react-native";
 import Booking from "../components/Booking";
+import BottomTabs from "../components/BottomTabs";
 import { BookingEntity } from "../entities/BookingEntity";
 
 export default function CreateScreen(props: any) {
-  const fetchBookings: () => void = props.route.params.fetchBookings;
+  /* const fetchBookings: () => void = props.route.params.fetchBookings; */
   const [name, setName] = useState("");
   const [numberOf, setNumberOf] = useState("");
   const [phone, setPhone] = useState("");
@@ -24,7 +25,7 @@ export default function CreateScreen(props: any) {
 
   const createBooking = async () => {
     axios
-      .post(`https://15db-5-179-80-205.eu.ngrok.io/bookings`, {
+      .post(`https://c681-5-179-80-204.eu.ngrok.io/bookings`, {
         name: name,
         numberOfPeople: numberOf,
         phone: phone,
@@ -34,7 +35,7 @@ export default function CreateScreen(props: any) {
       })
       .then((response) => {
         console.log(response.data);
-        fetchBookings();
+        /* fetchBookings(); */
       })
       .catch((error) => {
         console.log(error);
@@ -43,15 +44,19 @@ export default function CreateScreen(props: any) {
 
   return (
     <View>
-      <TextInput onChangeText={(text) => setName(text)}>{name}</TextInput>
-      <TextInput onChangeText={(text) => setNumberOf(text)}>
-        {numberOf}
-      </TextInput>
-      <TextInput onChangeText={(text) => setPhone(text)}>{phone}</TextInput>
-      <TextInput onChangeText={(text) => setEmail(text)}>{email}</TextInput>
-      <TextInput onChangeText={(text) => setDate(text)}>{date}</TextInput>
-      <TextInput onChangeText={(text) => setComment(text)}>{comment}</TextInput>
-      <Button title="Create" onPress={() => createBooking()} />
+      <SafeAreaView>
+        <TextInput onChangeText={(text) => setName(text)}>{name}</TextInput>
+        <TextInput onChangeText={(text) => setNumberOf(text)}>
+          {numberOf}
+        </TextInput>
+        <TextInput onChangeText={(text) => setPhone(text)}>{phone}</TextInput>
+        <TextInput onChangeText={(text) => setEmail(text)}>{email}</TextInput>
+        <TextInput onChangeText={(text) => setDate(text)}>{date}</TextInput>
+        <TextInput onChangeText={(text) => setComment(text)}>
+          {comment}
+        </TextInput>
+        <Button title="Create" onPress={() => createBooking()} />
+      </SafeAreaView>
     </View>
   );
 }

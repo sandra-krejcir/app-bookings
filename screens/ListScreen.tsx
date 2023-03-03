@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -11,19 +10,17 @@ import {
   Platform,
 } from "react-native";
 import Booking from "../components/Booking";
-import { StackMain } from "../components/Navigation";
+import BottomTabs from "../components/BottomTabs";
 import { BookingEntity } from "../entities/BookingEntity";
 
-type createScreenProp = StackNavigationProp<StackMain, "Create">;
-
 export default function ListScreen() {
-  const navigation = useNavigation<createScreenProp>();
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState<BookingEntity[]>();
+  const navigation = useNavigation();
 
   /* const local = Platform.OS === "ios" ? "localhost" : "10.0.2.2"; */
   const fetchBookings = async () => {
     axios
-      .get("https://15db-5-179-80-205.eu.ngrok.io/bookings")
+      .get("https://c681-5-179-80-204.eu.ngrok.io/bookings")
       .then((response) => {
         console.log(response.data);
         setBookings(response.data);
@@ -39,11 +36,6 @@ export default function ListScreen() {
 
   return (
     <View>
-      <Text>This is the list Screen</Text>
-      <Button
-        title="Create"
-        onPress={() => navigation.navigate("Create", { fetchBookings })}
-      />
       <SafeAreaView>
         <FlatList
           data={bookings}
@@ -53,7 +45,6 @@ export default function ListScreen() {
           keyExtractor={(item) => "" + item.id}
         />
       </SafeAreaView>
-      {/* <Button onPress={() => navigation.navigate("Edit")} title="Go to Edit"></Button> */}
     </View>
   );
 }
